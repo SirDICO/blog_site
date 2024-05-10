@@ -1,0 +1,181 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "blog",
+    "collectionId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+    "dateExported": "2024-05-08T22:14:38.467Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "3d3d32ad-2197-4dc3-bbc8-9d5ba368725f",
+            "name": "users",
+            "containerId": "",
+            "created": "2024-05-07T22:08:09.439Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "56890f45-feb4-4b28-af4d-9454fe8ed046",
+            "name": "category",
+            "containerId": "",
+            "created": "2024-05-08T21:42:50.993Z",
+            "sortNum": 15000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "671c39b5-5838-4b7a-af9c-f01383a5e079",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "3d3d32ad-2197-4dc3-bbc8-9d5ba368725f",
+            "name": "createUser",
+            "url": "{{url}}/user/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-07T22:08:30.030Z",
+            "modified": "2024-05-08T16:06:44.259Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "\n{\n  \"firstname\":\"chukwu\",\n  \"lastname\":\"Ikenna\",\n  \"email\":\"pasima@gmail.com\",\n  \"password\":\"secret\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "5c560fec-ef59-4dcf-b04f-fb9d29c5ec77",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "56890f45-feb4-4b28-af4d-9454fe8ed046",
+            "name": "createCategory",
+            "url": "{{url}}/category/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-08T21:42:50.993Z",
+            "modified": "2024-05-08T21:46:06.490Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "\n{\n  \"categoryName\":\"Agriculture\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "284993cc-b83e-45fa-920c-a6ce3d3d88ec",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "3d3d32ad-2197-4dc3-bbc8-9d5ba368725f",
+            "name": "updateUser",
+            "url": "{{url}}/user/update/663aadfa9de058fa6cf3d3d8",
+            "method": "PATCH",
+            "sortNum": 20000,
+            "created": "2024-05-08T19:30:48.211Z",
+            "modified": "2024-05-08T19:38:24.184Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "\n{\n  \"firstname\":\"Samson\",\n  \"lastname\":\"Winner\",\n  \"email\":\"sima@gmail.com\",\n  \"password\":\"secret\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "718a4ad6-dc13-479c-bd41-5b5b504d8c3d",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "56890f45-feb4-4b28-af4d-9454fe8ed046",
+            "name": "updateCategory",
+            "url": "{{url}}/category/update/663bf438db1ae33cf6a134b5",
+            "method": "PATCH",
+            "sortNum": 20000,
+            "created": "2024-05-08T21:42:50.994Z",
+            "modified": "2024-05-08T21:54:02.809Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "\n{\n  \"categoryName\":\"Books\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "08f65063-9aee-4e52-8080-ed977688f76b",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "3d3d32ad-2197-4dc3-bbc8-9d5ba368725f",
+            "name": "getUsers",
+            "url": "{{url}}/user/",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-08T19:31:06.884Z",
+            "modified": "2024-05-08T19:31:33.368Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "\n{\n  \"firstname\":\"chukwu\",\n  \"lastname\":\"Ikenna\",\n  \"email\":\"pasima@gmail.com\",\n  \"password\":\"secret\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "2a2d3e89-6202-4182-a05e-db1ab50bf13d",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "56890f45-feb4-4b28-af4d-9454fe8ed046",
+            "name": "getCategories",
+            "url": "{{url}}/category/",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-05-08T21:42:50.995Z",
+            "modified": "2024-05-08T21:44:41.594Z",
+            "headers": []
+        },
+        {
+            "_id": "7d34b5fc-05bb-42cf-9fa8-fa0f47617768",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "3d3d32ad-2197-4dc3-bbc8-9d5ba368725f",
+            "name": "getUser",
+            "url": "{{url}}/user/find/663aadfa9de058fa6cf3d3d8",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-05-08T19:56:55.966Z",
+            "modified": "2024-05-08T20:09:33.953Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "\n{\n  \"firstname\":\"chukwu\",\n  \"lastname\":\"Ikenna\",\n  \"email\":\"pasima@gmail.com\",\n  \"password\":\"secret\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "0c3813a9-b67c-4ddf-b55d-db726648d53c",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "56890f45-feb4-4b28-af4d-9454fe8ed046",
+            "name": "getCategory",
+            "url": "{{url}}/category/find/663bf29e489fa8643d46e9c6",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-05-08T21:42:50.996Z",
+            "modified": "2024-05-08T21:47:43.603Z",
+            "headers": []
+        },
+        {
+            "_id": "1a714635-a7f6-435c-846a-1a54b18bfb9a",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "3d3d32ad-2197-4dc3-bbc8-9d5ba368725f",
+            "name": "deleteUser",
+            "url": "{{url}}/user/delete/663aadfa9de058fa6cf3d3d8",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-05-08T20:21:30.610Z",
+            "modified": "2024-05-08T20:23:23.507Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "\n{\n  \"firstname\":\"chukwu\",\n  \"lastname\":\"Ikenna\",\n  \"email\":\"pasima@gmail.com\",\n  \"password\":\"secret\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "03c4fb5d-133c-4ea0-a8ee-4b8f7b3e0278",
+            "colId": "f2923a5c-1928-4ade-a729-fc9a5e2b07fd",
+            "containerId": "56890f45-feb4-4b28-af4d-9454fe8ed046",
+            "name": "deleteCategory",
+            "url": "{{url}}/category/delete/663bf438db1ae33cf6a134b5",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2024-05-08T21:42:50.997Z",
+            "modified": "2024-05-08T21:54:34.153Z",
+            "headers": []
+        }
+    ],
+    "ref": "4BXUIWNYNDpLFK69k25YMruPDAfAyXYqQfSqL1nVxfcMmJS4y1Dwqk5vMGYqTdGGxGV4m_MtQLG0qbTgo7utdA"
+}
