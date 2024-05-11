@@ -16,7 +16,7 @@ const PostSchema = new mongoose.Schema({
         ref:'Category',
         required:["Please Provide Post Category"],
     },
-   userId:{
+   createdBy:{
     type:mongoose.Schema.Type.ObjectId,
     ref:'User',
     required:["Please Provide Post User"],

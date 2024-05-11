@@ -1,28 +1,34 @@
 import express from 'express'
-import 'express-async-error'
+import 'express-async-errors'
 import dotenv from 'dotenv'
-import dbConnect from './db/connect.js'
-import userRoute from './routes/userRoute.js'
-import categoryRoute from './routes/categoryRoute.js'
 dotenv.config()
 const  app = express ()
+//DB
+import dbConnect from './db/connect.js'
+//ROUTES
+import userRoute from './routes/userRoute.js'
+import categoryRoute from './routes/categoryRoute.js'
+//MIDDLEWARE IMPORT
+import authenticateUser from './middlewares/auth.js'
+import notFoundMiddleware from './middlewares/not-found.js';
+import errorHandlerMiddleware from './middlewares/error-handler.js'
+//PORT
 const PORT = process.env.PORT || 8000
 
 
 //middleware
 app.use(express.json())
-app.use('/api/user', userRoute)
-app.use('/api/category/', categoryRoute)
+app.use('/api/v1/user', userRoute)
+app.use('/api/v1/category', authenticateUser, categoryRoute)
 
-
+app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
 
 const AppServer =  async () =>{
-    try {
+  
         await dbConnect(process.env.MONGO_URL)
         app.listen(PORT, ()=>{ console.log(`Server runnng on port ${PORT}`)})
-    } catch (error) {
-        console.log(error)
-    }
+  
 }
 
 AppServer();

@@ -1,73 +1,167 @@
 import UserModel from '../models/UserModel.js'
-//POST
+import {StatusCodes} from 'http-status-codes'
+
+/** **************************************
+Any request that contains 
+this listed error would be throw passed to 
+the appropriate middlewares 
+*****************************************/ 
+import {
+    BadRequestError, 
+    NotFoundError, 
+    UnAuthenticatedError
+} from '../errors/index.js'
+
+
+/** **************************************
+CREATE USER
+POST:
+ACCESS:
+URL: /api/v1/user/create
+*****************************************/ 
 const createUser = async(req, res)=>{
-   try {
+   
         const {firstname,lastname,email,password} = req.body
-          //check data content
+     
+        //check if user is not empty
         if(!firstname || !lastname || !email || !password){
-        const mgs = "Please all values"
-        return res.status(404).json({mgs})
+            throw new BadRequestError('please provide all values'); 
         }
+        
+        //check if user exist in db
+        const userEmailAlreadyExists = await UserModel.findOne({email});
+        if(userEmailAlreadyExists ){
+          throw new BadRequestError('Email already in use')
+        }
+
+        //add user to db
         const user = await UserModel.create({firstname,lastname,email,password})
-        res.status(200).json({user})
-    } catch (error) {
-        // console.log(error)
-        res.status(500).json({error})
-    }
+       
+        //create token
+        const token = user.createJWT()
+        
+        //pass undefined password to user 
+        //we redefine this later so we can share only what user need to see. 
+        user.password = undefined;
+        res.status(StatusCodes.CREATED).json({user, token})
+  
 }
+
+
+/** **************************************
+lOGIN
+POST:
+ACCESS:  
+*****************************************/ 
+
+const loginUser = async(req, res) =>{
+    const {email, password} = req.body
+    
+    //check if not empty
+    if(!email || !password){
+        throw new BadRequestError('Please provide all values')
+    }
+
+    //check if user exist in db
+    const user =await UserModel.findOne({email}).select('+password')
+    if(!user){
+        throw new UnAuthenticatedError('Invalid Credentials')
+    }
+
+    //compare password
+   const isPasswordCorrect = await  user.comparePassword(password)
+    if(!isPasswordCorrect){
+       throw new UnAuthenticatedError('Invalid Credentials')
+    }
+
+    //create JWT TOKEN
+    const token = user.createJWT();
+
+    //make password undefined
+    user.password = undefined;
+
+    res.status(StatusCodes.OK).json({user, token})
+}
+
+/** **************************************
+UPDATE USER
+PATCH:
+ACCESS: 
+URL: 
+*****************************************/ 
 
 const updateUser = async (req, res)=> {
     const {firstname,lastname,email,password} = req.body
 
     if(!firstname || !lastname || !email || !password){
-    const mgs = "Please all values"
-    return res.status(404).json({mgs})
+        throw new BadRequestError('Please provide all values')
     }
+
      const user = await UserModel.findOne({_id:req.params.id})
 
     if(!user){
-        const msg = `No such User`;
-        return res.status(404).json({msg})
+        throw new BadRequestError('No such user found!')
     }
 
+    //re-assign new values into existing variables holding previous values.
     user.email = email;
     user.firstname = firstname;
     user.lastname = lastname;
     user.password = password;
-  
+
+    //create jwt token
+    const token = user.createJWT()
+
+    //save to db
     await user.save()
-    res.status(200).json({user})
+
+    res.status(StatusCodes.OK).json({user, token})
 }
 
+/** **************************************
+GET ALL USERS
+POST:
+ACCESS:  
+URL: /api/v1/user
+*****************************************/ 
 const getUsers = async(req, res)=>{
     const user = await UserModel.find();
-    res.status(200).json({user})
+    res.status(StatusCodes.OK).json({user})
  }
 
+
+/** **************************************
+GET USER
+POST:
+ACCESS:  
+URL: /api/v1/user/:id
+*****************************************/ 
  const getUser = async(req, res)=>{
-    try {
+  
         const user = await UserModel.findOne({_id:req.params.id})
-    if(!user){
-        const msg = `No such User with the Id: ${req.params.id}`;
-        return res.status(404).json({msg})
-    }
-    res.status(200).json({user})
-    } catch (error) {
-        return res.status(404).json({error})
-    }
+            if(!user){
+                throw new BadRequestError(`No user with the ID: ${req.params.id} found!`)
+            }
+        res.status(StatusCodes.OK).json({user})
+   
  }
 
+ /****************************************
+DELETE USER
+POST:
+ACCESS:  
+URL: /api/v1/user/:id
+*****************************************/ 
  const deleteUser = async(req, res)=>{
-    try {
+ 
         const user = await UserModel.findByIdAndDelete({_id:req.params.id})
-    if(!user){
-        const msg = `No such User with the Id: ${req.params.id}`;
-        return res.status(404).json({msg})
-    }
-    res.status(200).json("User Deleted")
-    } catch (error) {
-        return res.status(404).json({error})
-    }
+            if(!user){
+                throw new BadRequestError(`No user with the ID: ${req.params.id} found!`)
+            }
+         res.status(StatusCodes.OK).json("User Deleted")
  }
 
- export {createUser, updateUser, getUser, getUsers,deleteUser}
+ /** **************************************
+  EXPORT EACH FUNCTION TO THE ROUTES 
+*****************************************/ 
+ export {createUser, updateUser, getUser,loginUser, getUsers,deleteUser}
